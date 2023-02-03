@@ -12,7 +12,7 @@ function runToast(msg, indicator) {
 <title>Pasa Report</title>
 
     <div class="container-fluid start-screen h-100" id="mainContainer">
-        <h1 class="start-screen-title">Pasa Report <i style="font-size: 22px;">(Brand Bashing))</i></h1>
+        <h1 class="start-screen-title">Pasa Report <i style="font-size: 22px;">(Brand Bashing)</i></h1>
         
         <span class="mif-spinner ani-spin mif-5x fg-teal" id="spinner"></span>
 
