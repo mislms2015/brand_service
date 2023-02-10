@@ -72,8 +72,5 @@ $conn->query("COMMIT");
 $stmt_update->close();
 $conn2->query("COMMIT");
 
-
-
-
 echo 'success';
 ?>
