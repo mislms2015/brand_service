@@ -66,6 +66,11 @@ include_once '../config/__utils.php';
                                     // insert filename to table for additional validation
                                     $file_upload_banner = $filename;
 
+                                    if (strpos($filename, 'PASADATA') !== FALSE || strpos($filename, 'pasadata') !== FALSE) $pasa_type_up = 'pasa_data';
+                                    if (strpos($filename, 'PASALOAD') !== FALSE || strpos($filename, 'pasaload') !== FALSE) $pasa_type_up = 'pasa_load';
+                                    if (strpos($filename, 'PASAPOINTS') !== FALSE || strpos($filename, 'pasapoints') !== FALSE) $pasa_type_up = 'pasa_points';
+                                    if (strpos($filename, 'PASAPROMO') !== FALSE || strpos($filename, 'pasapromo') !== FALSE) $pasa_type_up = 'pasa_promo';
+
                                     $upload_file = "INSERT INTO file_uploaded (file_type, file_name, banner) VALUES ('pasa_report', '".$files['name'][$i]. "', '" .$file_upload_banner. "')";
                                     
                                     $file_upload_id = '';
@@ -85,7 +90,7 @@ include_once '../config/__utils.php';
                                             $status_active = 'FAILED';
                                         }
 
-                                        array_push($pasa_report_logs, array($file_upload_id, $getData[0], $getData[1], $getData[2], $getData[3], $getData[4], $getData[5], $getData[6], $getData[7], $getData[8], $getData[9], $getData[10], $getData[11], $getData[12], $getData[13], $getData[14], $status_active));
+                                        array_push($pasa_report_logs, array($file_upload_id, $pasa_type_up, $getData[0], $getData[1], $getData[2], $getData[3], $getData[4], $getData[5], $getData[6], $getData[7], $getData[8], $getData[9], $getData[10], $getData[11], $getData[12], $getData[13], $getData[14], $status_active));
 
                                         $counter++;
                                     }
@@ -94,31 +99,32 @@ include_once '../config/__utils.php';
                                     fclose($csvFile);
 
                                     //insert gigapay raw logs here:start
-                                    $query = "INSERT INTO pasa_extract (id, sequence_number, transaction_id, date_registered, primary_min, brand, mran, recipient_min, amount, date_initiated, date_failed, date_requested, date_debit_confirmed, date_credit_confirmed, denomination_id, pasa_type, STATUS) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                                    $query = "INSERT INTO pasa_extract (id, pasa_type_upload, sequence_number, transaction_id, date_registered, primary_min, brand, mran, recipient_min, amount, date_initiated, date_failed, date_requested, date_debit_confirmed, date_credit_confirmed, denomination_id, pasa_type, STATUS) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
 
                                     $stmt = $conn->prepare($query);
-                                    $stmt->bind_param("sssssssssssssssss", $upload_id, $sequence_number, $transaction_id, $date_registered, $primary_min, $brand, $mran, $recipient_min, $amount, $date_initiated, $date_failed, $date_requested, $date_debit_confirmed, $date_credit_confirmed, $denomination_id, $pasa_type, $status);
+                                    $stmt->bind_param("ssssssssssssssssss", $upload_id, $pasa_type_upload, $sequence_number, $transaction_id, $date_registered, $primary_min, $brand, $mran, $recipient_min, $amount, $date_initiated, $date_failed, $date_requested, $date_debit_confirmed, $date_credit_confirmed, $denomination_id, $pasa_type, $status);
 
                                     $conn->query("START TRANSACTION");
                                     foreach ($pasa_report_logs as $res) {
                                         $upload_id = $res[0];
-                                        $sequence_number = $res[1];
-                                        $transaction_id = $res[2];
-                                        $date_registered = $res[3];
-                                        $primary_min = $res[4];
-                                        $brand = $res[5];
-                                        $mran = $res[6];
-                                        $recipient_min = $res[7];
-                                        $amount = $res[8];
-                                        $date_initiated = $res[9];
-                                        $date_failed = $res[10];
-                                        $date_requested = $res[11];
-                                        $date_debit_confirmed = $res[12];
-                                        $date_credit_confirmed = $res[13];
-                                        $denomination_id = $res[14];
-                                        $pasa_type = $res[15];
-                                        $status = $res[16];
+                                        $pasa_type_upload = $res[1];
+                                        $sequence_number = $res[2];
+                                        $transaction_id = $res[3];
+                                        $date_registered = $res[4];
+                                        $primary_min = $res[5];
+                                        $brand = $res[6];
+                                        $mran = $res[7];
+                                        $recipient_min = $res[8];
+                                        $amount = $res[9];
+                                        $date_initiated = $res[10];
+                                        $date_failed = $res[11];
+                                        $date_requested = $res[12];
+                                        $date_debit_confirmed = $res[13];
+                                        $date_credit_confirmed = $res[14];
+                                        $denomination_id = $res[15];
+                                        $pasa_type = $res[16];
+                                        $status = $res[17];
                                         $stmt->execute();
                                     }
                                     $stmt->close();

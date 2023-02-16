@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 03, 2023 at 05:14 PM
+-- Generation Time: Feb 16, 2023 at 03:41 PM
 -- Server version: 10.4.19-MariaDB
 -- PHP Version: 7.4.19
 
@@ -78,6 +78,7 @@ CREATE TABLE `min_metadata` (
 
 CREATE TABLE `pasa_extract` (
   `id` varchar(25) NOT NULL,
+  `pasa_type_upload` varchar(25) NOT NULL,
   `sequence_number` varchar(50) NOT NULL,
   `transaction_id` varchar(50) NOT NULL,
   `date_registered` varchar(50) NOT NULL,
@@ -126,7 +127,8 @@ ALTER TABLE `min_metadata`
 --
 ALTER TABLE `pasa_extract`
   ADD KEY `primary_min_idx` (`primary_min`),
-  ADD KEY `sequence_number_idx` (`sequence_number`);
+  ADD KEY `sequence_number_idx` (`sequence_number`),
+  ADD KEY `pasa_type_upload_idx` (`pasa_type_upload`);
 
 --
 -- AUTO_INCREMENT for dumped tables

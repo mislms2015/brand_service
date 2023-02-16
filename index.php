@@ -97,6 +97,9 @@ function runToast(msg, indicator) {
                 <div id="investigate" data-role="tile" data-size="small" class="bg-teal">
                     <img src="./images/magnifying.png" class="icon" <?=popOver('Bash Brand')?>>
                 </div>
+                <div id="investigate_postman" data-role="tile" data-size="small" class="bg-violet">
+                    <img src="./images/postman.png" class="icon" <?=popOver('Bash Brand Postman')?>>
+                </div>
                 <a href="./layout/download.php" data-role="tile" data-size="small" class="bg-blue">
                     <img src="./images/download.png" class="icon" <?=popOver('Download Bashed Data')?>>
                 </a>
@@ -141,6 +144,29 @@ function runToast(msg, indicator) {
                 function(xhr){console.log('error')} // error
             );
         });
+
+        $("#investigate_postman").click(function() {
+            $('#spinner').css('visibility','visible');
+            $('#mainContainer').attr('disabled', true);
+            
+            $.ajax({
+                method: "GET",
+                url: "./layout/investigate_postman.php"
+            }).then(
+                function(response){ //success
+                    if (response == 'success'){
+                        $('#spinner').css('visibility','hidden');
+                        $('#mainContainer').removeAttr("disabled");
+                        audio.play();
+                        runToast("Bashing of brand successful!", "bg-green fg-white");
+                    } else {
+                        console.log('fail');
+                    }
+                },
+                function(xhr){console.log('error')} // error
+            );
+        });
+
     });
     
 </script>
