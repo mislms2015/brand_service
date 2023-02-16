@@ -97,9 +97,9 @@ function runToast(msg, indicator) {
                 <div id="investigate" data-role="tile" data-size="small" class="bg-teal">
                     <img src="./images/magnifying.png" class="icon" <?=popOver('Bash Brand')?>>
                 </div>
-                <div id="investigate_postman" data-role="tile" data-size="small" class="bg-violet">
+                <!-- <div id="investigate_postman" data-role="tile" data-size="small" class="bg-violet">
                     <img src="./images/postman.png" class="icon" <?=popOver('Bash Brand Postman')?>>
-                </div>
+                </div> -->
                 <a href="./layout/download.php" data-role="tile" data-size="small" class="bg-blue">
                     <img src="./images/download.png" class="icon" <?=popOver('Download Bashed Data')?>>
                 </a>
