@@ -80,7 +80,7 @@ include_once '../config/__utils.php';
                                     $counter = 0;
                                     while (($getData = fgetcsv($csvFile, 100000000, ",")) !== FALSE) {
 
-                                        array_push($min_metadata_logs, array($file_upload_id, $getData[0], $getData[1], $getData[2], $getData[3], $getData[4], $getData[5], $getData[6], $getData[7]));
+                                        array_push($min_metadata_logs, array($file_upload_id, $getData[0], $getData[4], $getData[2], $getData[3], $getData[6], $getData[5], $getData[7], $getData[1]));
 
                                         $counter++;
                                     }
